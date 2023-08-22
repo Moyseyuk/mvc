@@ -7,13 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Book</title>
 </head>
 <body>
 
-<form method="post" action="/mvc_war_exploded/search/">
+<form method="post" action="/mvc_war_exploded/">
     <input type="text" name="bookSearch"><br>
     <input type="submit" value="Search">
 </form>
@@ -31,11 +33,12 @@
 </c:forEach>
 </table>
 
-<form method="post" action="/mvc_war_exploded/">
-    Author: <input type="text" name="author"><br>
-    Book: <input type="text" name="book"><br>
-    <input type="submit" value="Save">
-</form>
+${error}
+<sf:form action="book" method="post" modelAttribute="book">
+    Author: <sf:input path="author"/><sf:errors path="author"/><br>
+    Book: <sf:input path="bookName"/><sf:errors path="bookName"/><br>
+    <sf:button>Save</sf:button>
+</sf:form>
 
 </body>
 </html>
