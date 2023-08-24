@@ -3,7 +3,6 @@ package com.tms.services;
 import com.tms.model.Book;
 import com.tms.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,20 +14,17 @@ public class BookService {
 
     private final BookRepository repository;
 
-    @SneakyThrows
     public void save(Book book){
         repository.save(book);
     }
 
-    @SneakyThrows
     public List<Book> getBook(){
-        return  repository.getBooks();
+        return  repository.getAllBooks();
     }
 
-    @SneakyThrows
     public List<Book> searchBook(String searchString){
         List<Book> foundedBooks = new ArrayList<>();
-        List<Book> books = repository.getBooks();
+        List<Book> books = repository.getAllBooks();
         for (Book book : books){
             String author = book.getAuthor();
             String name = book.getBookName();

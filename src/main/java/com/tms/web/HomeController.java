@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.UUID;
 
 @Controller
@@ -33,9 +34,11 @@ public class HomeController {
     }
 
     @PostMapping("/book")
-    public String save(@Valid Book book, BindingResult result){
+    public String save(@Valid Book book, BindingResult result, Model model){
         bookCreateService.create(book);
-        bookService.save(new Book(UUID.randomUUID(), book.getAuthor(), book.getBookName()));
+        if (!result.hasErrors()){
+            bookService.save(new Book(UUID.randomUUID(), book.getAuthor(), book.getBookName()));
+        }
         return "book";
     }
 
